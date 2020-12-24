@@ -15,7 +15,9 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
- * Class encapsulating functionality to create spreadsheet reports.
+ * Class encapsulating functionality to create spreadsheet reports. This class streamlines
+ * the usage of the Apache POI framework to create Excel spreadsheets. 
+ * For more information about Apache POI - <a href="https://poi.apache.org/">click here</a>.
  * 
  * @author lmaloney
  *
@@ -66,7 +68,7 @@ public class Workbook {
 	 * Create/Add column headers
 	 * @param columnHeaders
 	 * @param rowNumber
-	 * @param lastRow
+	 * @param lastRow - if true, the cells in the header row are underlined
 	 * @return
 	 */
 	public Row createColumnHeaderRow(String[] columnHeaders, int rowNumber, boolean lastRow) {
@@ -98,17 +100,28 @@ public class Workbook {
 	 * @return
 	 */
 	public Row addTitleRow(int rowNum, String cellValue) {
+		return addTitleRow(rowNum, cellValue, "Arial", 14);
+	}
+	/**
+	 * Add/Create a title row for the spreadsheet
+	 * @param rowNum
+	 * @param titleString
+	 * @param fontFace
+	 * @param fontSize
+	 * @return
+	 */
+	public Row addTitleRow(int rowNum, String titleString, String fontFace, int fontSize) {
 		Font titleFont = xssfWorkbook.createFont();
-		titleFont.setFontName("Arial");
+		titleFont.setFontName(fontFace);
 		titleFont.setBold(true);
-		titleFont.setFontHeightInPoints((short) 14);
+		titleFont.setFontHeightInPoints((short) fontSize);
 
 		Row row = sheet.createRow(rowNum);
 		Cell cell = row.createCell(0, CellType.STRING);
 		cell.setCellStyle(xssfWorkbook.createCellStyle());
 		cell.getCellStyle().setFont(titleFont);
 		cell.getCellStyle().setAlignment(HorizontalAlignment.LEFT);
-		cell.setCellValue(cellValue);
+		cell.setCellValue(titleString);
 		return row;
 	}
 

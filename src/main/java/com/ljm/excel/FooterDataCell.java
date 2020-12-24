@@ -3,10 +3,18 @@ package com.ljm.excel;
 import java.math.BigDecimal;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
-
+/**
+ * Class representing a specify type of cell in the spreadsheet, a footer or total row
+ * 
+ * @author luthermaloney
+ *
+ */
 public class FooterDataCell extends AbstractRowCell<BigDecimal> {
 	private CellFormatEnum cellFormat = CellFormatEnum.GENERAL;
-
+	/**
+	 * Creates an instance of the footer cell with the specified <code>CellFormatEnum</code>
+	 * @param format
+	 */
 	public FooterDataCell(CellFormatEnum format) {
 		this(0d);
 		cellFormat = (format == null ? CellFormatEnum.GENERAL : format);
@@ -16,7 +24,9 @@ public class FooterDataCell extends AbstractRowCell<BigDecimal> {
 		setCellValue(BigDecimal.valueOf(value).setScale(2));
 		setCellFont(null, null);
 	}
-
+	/**
+	 * By default the footer cells return <code>HorizontalAlignment.RIGHT</code>
+	 */
 	@Override
 	public HorizontalAlignment getAlign() {
 		return HorizontalAlignment.RIGHT;
@@ -26,7 +36,9 @@ public class FooterDataCell extends AbstractRowCell<BigDecimal> {
 	public CellFormatEnum getCellFormat() {
 		return cellFormat;
 	}
-
+	/**
+	 * By default the footer cells return <code>CellType.NUMERIC</code>
+	 */
 	@Override
 	public CellType getType() {
 		return CellType.NUMERIC;
@@ -36,7 +48,13 @@ public class FooterDataCell extends AbstractRowCell<BigDecimal> {
 		add(augend != null ? BigDecimal.valueOf(augend) : BigDecimal.valueOf(0l));
 		return this;
 	}
-	
+	/**
+	 * Calculates the difference between all of the values in the argument list by taking the first
+	 * value and subtracting all subsequent values. The difference is then added to the current value 
+	 * of the cell. 
+	 * @param values
+	 * @return
+	 */
 	public FooterDataCell addDifference(Long... values) {
 		BigDecimal difference = BigDecimal.valueOf((values[0] != null ? values[0] : 0l));
 		for ( int i = 1; i < values.length; i++) {
@@ -59,7 +77,13 @@ public class FooterDataCell extends AbstractRowCell<BigDecimal> {
 		setCellValue(getCellValue().subtract(subtrahend != null ? subtrahend : BigDecimal.valueOf(0d)));
 		return this;
 	}
-
+	/**
+	 * Calculates the difference between all of the values in the argument list by taking the first
+	 * value and subtracting all subsequent values. The difference is then added to the current value 
+	 * of the cell. 
+	 * @param values
+	 * @return
+	 */
 	public void addDifference(BigDecimal... values) {
 		BigDecimal difference = values[0].add(BigDecimal.valueOf(0d));
 		for ( int i = 1; i < values.length; i++) {

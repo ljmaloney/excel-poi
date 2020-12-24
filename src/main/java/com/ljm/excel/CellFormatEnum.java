@@ -1,5 +1,11 @@
 package com.ljm.excel;
-
+/**
+ * A subset of the formats supported by 
+ * <a href="https://poi.apache.org/apidocs/dev/index.html?org/apache/poi/ss/usermodel/BuiltinFormats.html">Apache POI</a>
+ * 
+ * @author luthermaloney
+ *
+ */
 public enum CellFormatEnum {
 
 	// taken from the list at https://poi.apache.org/apidocs/dev/index.html?org/apache/poi/ss/usermodel/BuiltinFormats.html
